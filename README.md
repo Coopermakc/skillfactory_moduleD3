@@ -7,3 +7,8 @@
     pip install -r requirenments.txt
 
 Фикстуры в файле data.xml
+
+
+ Админка
+ login user_a
+ password 12qw!@QW
