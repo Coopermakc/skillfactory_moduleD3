@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <h2>Список изданий</h2>
+        <br>
+            {% for publisher, books in publishers_books.items %}
+                <ul class="list-group">{{ publisher }}</ul>
+                    {% for book in books %}
+                        <li class="list-group-item">{{ book.title }}</li>
+                    {% endfor %}
+                <br>
+            {% endfor %}
+    </div>
+{% endblock %}
