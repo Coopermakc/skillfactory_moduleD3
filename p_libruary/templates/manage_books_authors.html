@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <head>
+        <meta charset="UTF-8">
+        <title>Create multiple Authors and Books</title>
+    </head>
+{% endblock %}
+{% block content %}
+    <form method="post">  
+        {% csrf_token %}  
+        {% for form in author_formset %}  
+                {{ form.as_ul }}  
+                <br>  
+        {% endfor %}  
+        
+        {% for form in book_formset %}  
+            {{ form.as_ul }}  
+            <br>  
+        {% endfor %}  
+        <input type="submit" value="Сохранить"/>  
+    </form>  
+{% endblock %}

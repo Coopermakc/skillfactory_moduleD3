@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from p_libruary import views
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.books_list),
@@ -24,4 +25,8 @@ urlpatterns = [
     path('index/book_increment/', views.book_increment),
     path('index/book_decrement/', views.book_decrement),
     path('publishers/', views.publishers),
+    path('author/create/', views.AuthorEdit.as_view(), name='author_create'),  
+    path('authors/', views.AuthorList.as_view(), name='author_list'),
+    path('author/create_many/', views.author_create_many, name='author_create_many'),
+    path('author_book/create_many/', views.books_authors_create_many, name='author_book_create_many'),
 ]
