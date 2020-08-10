@@ -13,5 +13,8 @@
 	    {% csrf_token %}  
 	    {{ form.as_p }}  
 	    <input type="submit" value="Сохранить">  
-    </form>  
+    </form> 
+	<form action="delete/" style="margin: 10px 0px 0px 0px;">
+		<button>Удалить</button>
+	</form> 
 {% endblock %}

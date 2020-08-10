@@ -1,23 +1,36 @@
 # from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
-from p_libruary.models import Book, Publisher, Author
+from p_libruary.models import Book, Publisher, Author, Friend
 from django.shortcuts import redirect, render
 from p_libruary.forms import AuthorForm, BookForm
-from django.views.generic import CreateView, ListView
+from django.views.generic import CreateView, ListView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.forms import formset_factory
 from django.http.response import HttpResponseRedirect
 
-class AuthorEdit(CreateView):
+class AuthorCreate(CreateView):
     model = Author
     form_class = AuthorForm
-    success_url = reverse_lazy('author_list')
+    success_url = reverse_lazy('p_libruary:authors_list')
     template_name = 'author_edit.html'
 
 class AuthorList(ListView):
     model = Author
     template_name = 'authors_list.html'
+
+
+class AuthorUpdate(UpdateView):
+    model = Author
+    fields = ['full_name', 'birth_year', 'country']
+    success_url = reverse_lazy('p_libruary:authors_list')
+    template_name = 'author_edit.html'
+
+class AuthorDelete(DeleteView):
+    model = Author
+    form_class = AuthorForm
+    success_url = reverse_lazy('p_libruary:authors_list')
+    template_name = 'author_delete.html'
 
 
 def books_list(request):
@@ -114,3 +127,10 @@ def books_authors_create_many(request):
             'book_formset': book_formset,
         }
     )
+def friends_list(request):
+    template = loader.get_template('friends.html')
+    friends = Friend.objects.all()
+    data = {
+        'friends': friends,
+    }
+    return HttpResponse(template.render(data, request))

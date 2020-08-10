@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <head>
+        <meta charset="UTF-8">
+        <title>Friends list</title>
+    </head>
+{% endblock %}
+{% block content %}
+    {% for friend in friends %}
+        <ul class='list-group'>
+            <li class='list-group-item'>
+                {{ friend.name }}
+                <ul class='list-group'>
+                    {% for book in friend.books.all %}
+                        <li class='list-group-item'> {{ book.title }}</li>
+                    {% endfor %}
+                </ul>
+            </li>
+        </ul>
+    {% endfor %}
+{% endblock %}
