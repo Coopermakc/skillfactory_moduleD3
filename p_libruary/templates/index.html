@@ -1,4 +1,4 @@
-{% load bootstrap4 %}
+
 {% load custom_filter %}
 
 Добро пожаловать в {{ title }}. <br>
@@ -15,6 +15,7 @@
         <td>{{ book.auhor.full_name }}</td>
         <td>{{ book.author.country }}</td>
         <td>{{ book.copy_count }}</td>
+        <td>{{ book.reader }}</td>
         <td>
             <form action="/index/book_increment/" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
