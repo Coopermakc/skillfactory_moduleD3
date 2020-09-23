@@ -6,7 +6,7 @@
 
 Для клонирования проекта выполните команду
 
-    git clone https://github.com/Coopermakc/skillfactory_moduleD5.git
+    git clone https://github.com/Coopermakc/skillfactory_moduleD3.git
 
 В файле requirenments.txt библиотеки, которые используются в проекте.
 
