@@ -12,7 +12,7 @@
 
 Их можно установить командой 
 
-    pip install -r requirenments.txt
+    pip install -r requirements.txt
 
 Фикстуры в файле data.xml
 
