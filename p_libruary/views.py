@@ -1,13 +1,16 @@
 # from django.shortcuts import render
 from django.http import HttpResponse
+from django.utils import timezone
 from django.template import loader
 from p_libruary.models import Book, Publisher, Author, Friend
 from django.shortcuts import redirect, render
-from p_libruary.forms import AuthorForm, BookForm
-from django.views.generic import CreateView, ListView, UpdateView, DeleteView
+from p_libruary.forms import AuthorForm, BookForm, ContactForm
+from django.views.generic import CreateView, ListView, UpdateView, DeleteView, View, DetailView
 from django.urls import reverse_lazy
 from django.forms import formset_factory
 from django.http.response import HttpResponseRedirect
+from django.views.generic.edit import FormView
+import json
 
 class AuthorCreate(CreateView):
     model = Author
@@ -32,6 +35,34 @@ class AuthorDelete(DeleteView):
     success_url = reverse_lazy('p_libruary:authors_list')
     template_name = 'author_delete.html'
 
+class PublisherList(ListView):
+    model = Publisher
+
+    def get(self):
+        publishers_list = self.model.objects.all()
+        return publishers_list
+
+    def put(self, request):
+        data = json.loads(request.body)
+        publisher = self.model(**data)
+        publisher.save()
+
+class PublisherDetailView(DetailView):
+    model = Publisher
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['now'] = timezone.now()
+        return context
+
+class ContactView(FormView):
+    template_name = 'contact.html'
+    form_class = ContactForm
+    success_url = '/thanks/'
+
+    def form_valid(self, form):
+        form.send_email()
+        return super().form_valid(form)
 
 def books_list(request):
     books = Book.objects.all()
@@ -42,7 +73,7 @@ def index(request):
     template = loader.get_template('index.html')
     books = Book.objects.all()
     biblio_data = {
-        "title": "my libruary",
+        "title": "Библиотеку",
         "books": books,
     }
     return HttpResponse(template.render(biblio_data, request))

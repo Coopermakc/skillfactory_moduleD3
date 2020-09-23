@@ -2,9 +2,11 @@
 
 
 {% block head %} 
+{% load static %}
     <head>  
 	    <meta charset="UTF-8">  
-	    <title>Форма создания и редактирования Авторов</title>  
+	    <title>Форма создания и редактирования Авторов</title>
+        <link rel="stylesheet" href='{% static "mba.css" %}'>
     </head>
 {% endblock %}      
  
@@ -12,9 +14,9 @@
     <form method="post">  
 	    {% csrf_token %}  
 	    {{ form.as_p }}  
-	    <input type="submit" value="Сохранить">  
+	    <input type="submit" value="Сохранить" class="btn btn-success">  
     </form> 
 	<form action="delete/" style="margin: 10px 0px 0px 0px;">
-		<button>Удалить</button>
+		<button class="btn btn-warning">Удалить</button>
 	</form> 
 {% endblock %}

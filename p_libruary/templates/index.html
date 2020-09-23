@@ -1,10 +1,36 @@
+{% extends 'base.html' %}
 
+
+{% block head %}
+    {% load static %}
+    <head>
+        <meta charset="UTF-8">
+        <title>Libruary</title>
+        <link rel="stylesheet" href="{% static 'style.css' %}">
+    </head>
+{% endblock %}
 {% load custom_filter %}
+{% block content %}
 
-Добро пожаловать в {{ title }}. <br>
-Тут собрано {{ books| length }} книг из моей личной коллекции.
+<h2 class="title">Добро пожаловать в {{ title }} </h2><br>
+<p class="title">Тут собрано {{ books| length }} книг из моей личной коллекции.</p>
 
-<table border="1">
+<table class="table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Название</th>
+            <th scope="col">ISBN</th>
+            <th scope="col">Описание</th>
+            <th scope="col">Дата выхода</th>
+            <th scope="col">Автор</th>
+            <th scope="col">Страна</th>
+            <th scope="col">Количество</th>
+            <th scope="col">Читатель</th>
+            <th scope="col">Обложка</th>
+            <th scope="col">Счетчик</th>
+        </tr>
+    </thead>
     {% for book in books %}
     <tr>
         <td>{{ forloop.counter }}</td>
@@ -12,10 +38,16 @@
         <td>{{ book.ISBN }}</td>
         <td>{{ book.description }}</td>
         <td>{{ book.year_release }}</td>
-        <td>{{ book.auhor.full_name }}</td>
+        <td>{{ book.author.full_name }}</td>
         <td>{{ book.author.country }}</td>
         <td>{{ book.copy_count }}</td>
         <td>{{ book.reader }}</td>
+        <td>
+            {% if book.image %}
+                <img src='{{ book.image.url }}' alt="Wrap's picture"></td>
+            {% else %}
+                <p>:)</p>
+            {% endif %}
         <td>
             <form action="/index/book_increment/" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
@@ -31,3 +63,4 @@
     </tr>
     {% endfor %}
 </table>
+{% endblock %}

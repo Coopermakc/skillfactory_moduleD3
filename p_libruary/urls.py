@@ -1,7 +1,8 @@
 from django.contrib import admin
 from django.urls import path
-from .views import book_decrement, book_increment, publishers, AuthorCreate, AuthorUpdate, AuthorList, author_create_many, books_authors_create_many, friends_list, AuthorDelete
-
+from .views import book_decrement, book_increment, publishers, AuthorCreate, AuthorUpdate, AuthorList, PublisherDetailView, author_create_many, books_authors_create_many, friends_list, AuthorDelete
+from django.conf import settings
+from django.conf.urls.static import static
 
 app_name = 'p_libruary'
 
