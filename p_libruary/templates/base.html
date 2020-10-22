@@ -20,10 +20,10 @@
         <div class="login-container">
             {% if  request.user.is_authenticated%}
                 <p>Вы вошли как {{ request.user.username }}</p>
-                <a href="/accounts/logout/">Выйти</a>
+                <a href="/logout/">Выйти</a>
             {% else %}
-                <a href="/accounts/login/">Войти</a>
-                <a href="/accounts/signup/">Зарегистрироваться</a>
+                <a href="/login/">Войти</a>
+                <a href="/register/">Зарегистрироваться</a>
             {% endif %}  
         <div>
     </nav>

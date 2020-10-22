@@ -4,12 +4,15 @@ from django.utils import timezone
 from django.template import loader
 from p_libruary.models import Book, Publisher, Author, Friend
 from django.shortcuts import redirect, render
-from p_libruary.forms import AuthorForm, BookForm, ContactForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from p_libruary.forms import AuthorForm, BookForm, ContactForm, ProfileCretionForm
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView, View, DetailView
 from django.urls import reverse_lazy
+from django.contrib.auth import login, authenticate
 from django.forms import formset_factory
 from django.http.response import HttpResponseRedirect
 from django.views.generic.edit import FormView
+from allauth.socialaccount.models import SocialAccount
 import json
 
 class AuthorCreate(CreateView):
@@ -63,6 +66,40 @@ class ContactView(FormView):
     def form_valid(self, form):
         form.send_email()
         return super().form_valid(form)
+
+
+
+class RegisterView(FormView):
+
+    form_class = UserCreationForm
+
+    def form_valid(self, form):
+        form.save()
+        username = form.cleaned_data.get('username')
+        raw_password = form.cleaned_data.get('password1')
+        login(self.request, authenticate(username=username, password=raw_password))
+        return super(RegisterView, self).form_valid(form)
+
+
+class CreateUserProfile(FormView):
+    
+    form_class = ProfileCretionForm
+    template_name = 'profile-create.html'
+    success_url = reverse_lazy('index')
+
+    def dispatch(self, request, *args, **kwargs):
+        if self.request.user.is_anonymous:
+            return HttpResponseRedirect(reverse_lazy('login'))
+        return super(CreateUserProfile, self, context).dispatch(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        instance = form.save(commit=False)
+        instance.user = self.request.user
+        instance.save()
+        return super(CreateUserProfile, self).form_valid(form)
+
+
+
 
 def books_list(request):
     books = Book.objects.all()

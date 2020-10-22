@@ -1,5 +1,5 @@
 from django import forms
-from p_libruary.models import Author, Book
+from p_libruary.models import Author, Book, UserProfile
 
 class AuthorForm(forms.ModelForm):
 
@@ -18,3 +18,13 @@ class BookForm(forms.ModelForm):
 class ContactForm(forms.Form):
     name = forms.CharField()
     message = forms.CharField(widget=forms.TextInput)
+
+
+
+
+class ProfileCretionForm(forms.ModelForm):
+
+
+    class Meta:
+        model = UserProfile
+        fields = ['age', 'country']

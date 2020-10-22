@@ -43,5 +43,7 @@ class Book(models.Model):
         return self.title
 
 class UserProfile(models.Model):
+    age = models.IntegerField(blank=True)
+    country = models.CharField(max_length=2, blank=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     
