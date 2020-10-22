@@ -9,7 +9,7 @@
 {% block content %}
 	<ul>
 		{% for author in object_list %}
-		    <li><a href='{{ author.id }}/'>{{ author.full_name }}</a></li>
+		    <li><a href="{{ animal.id }}">{{ author.full_name }}</a></li>
 		{% endfor %}
 	</ul>
 	<a href='create/' style='margin: 10px 0px 0px 40px' class="btn btn-primary">Добавить автора</a>

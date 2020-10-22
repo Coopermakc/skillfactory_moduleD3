@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+from django.urls import reverse_lazy
 # import dj_database_url  
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -40,8 +41,21 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'django.contrib.sites',  
+    'allauth',  
+    'allauth.account',  
+    'allauth.socialaccount',  
+    'allauth.socialaccount.providers.github',  
+
     'p_libruary',
 ]
+
+
+AUTHENTICATION_BACKENDS = (  
+	'django.contrib.auth.backends.ModelBackend',  
+	'allauth.account.auth_backends.AuthenticationBackend',  
+)
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -133,3 +147,6 @@ STATICFILES_DIRS = [
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+SITE_ID = 1
+LOGIN_REDIRECT_URL = reverse_lazy('index')
+ACCOUNT_EMAIL_VERIFICATION = 'none'

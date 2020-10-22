@@ -2,7 +2,31 @@
 <html>
     {% block head %}
     {% endblock %}
+    {% load static %}
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'base.css' %}">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Библиотека</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link" href="/">Главная <span class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link" href="/publishers/">Издания</a>
+                <a class="nav-item nav-link" href="/authors/">Авторы</a>
+            </div>
+        </div>
+        <div class="login-container">
+            {% if  request.user.is_authenticated%}
+                <p>Вы вошли как {{ request.user.username }}</p>
+                <a href="/accounts/logout/">Выйти</a>
+            {% else %}
+                <a href="/accounts/login/">Войти</a>
+                <a href="/accounts/signup/">Зарегистрироваться</a>
+            {% endif %}  
+        <div>
+    </nav>
     {% block content %}
     {% endblock %}
 </html>
